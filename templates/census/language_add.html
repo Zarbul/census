@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Добавление языка программирования
+{% endblock %}
+
+{% block content %}
+    <h3>Добавление языка программирования</h3>
+
+    <form action="{% url 'add_language' %}" class="mt-5 register-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-4 d-block w-100">Submit</button>
+        <a class="button" href="{% url 'list' %}">Отмена</a>
+    </form>
+{% endblock %}
+
+{% block endscript %}
+    <script>
+        //список имен для автокомплита
+        const names = [{% for name in names %} "{{ name.f_name }}", {% endfor %}];
+        //создаем автокомплит
+        $("#id_f_name").autocomplete({source: names});
+
+    </script>
+{% endblock %}

@@ -1,0 +1,119 @@
+
+<body>
+    <button id="addEmployee">Добавить</button>
+    <!-- окно добавления пользователя start-->
+    <div id="dialog" title="Добавление сотрудника" style="display: none;">
+        <div>
+            <label for="name">Имя</label>
+            <input id="name" type="text">
+        </div>
+        <div>
+            <label for="secondName">Фамилия</label>
+            <input id="secondName" type="text">
+        </div>
+        <div>
+
+            <label for="age">Возраст</label>
+            <input id="age" type="text"> 
+        </div>
+        <div>
+            <label for="department">Отдел</label>
+            <select name="" id="department">
+                <option value="0" selected disabled hidden></option>
+                <option value="Отдел 1, этаж 1">Отдел 1, этаж 1</option>
+                <option value="Отдел 2, этаж 2">Отдел 2, этаж 2</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="programmLang">Язык программирования</label>
+            <input id="programmLang" type="text">
+        </div>
+        <div class="control">
+            <button id="submit">Добавить</button>
+            <button id="close">Отмена</button>
+        </div>
+    </div>
+    <!-- окно добавления пользователя end-->
+</body>
+</html>
+<script>
+    //функция создания диалогового окна
+    function openDialog() {
+        //открываем даилоговое окно
+        $( "#dialog" ).dialog({
+            width: 500
+        });
+        //список ЯП для автокомплита
+        const availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+      ];
+      //создаем автокомплит из input #programLang
+      $( "#programmLang" ).autocomplete({
+        source: availableTags
+      });
+    }
+    //вешаем событие на открытие диалогового окна
+    $("#addEmployee").click(()=> openDialog());
+    //вешаем событие закрытия диалогового окна
+    $("#close").click(()=> {
+        $( "#dialog" ).dialog('close');
+    });
+    
+    //отправка данных на сервер
+    $("#submit").click(()=> {
+        const Employee = {
+            name: $("#name").val(),
+            secondname: $("#secondName").val(),
+            age: $("#age").val(),
+            department: $("#department").val(),
+            lang: $("#programmLang").val(),
+        }
+        console.log("submit", Employee)
+    });
+</script>
+<style>
+    #dialog li {
+        list-style-type: none;
+   }
+   #dialog ul {
+    margin-left: 0;
+    padding-left: 0;
+   }
+   #dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+   }
+   #dialog div {
+       text-align: right;
+       padding: 5px;
+   }
+   #dialog div input, #dialog div select {
+       width: 200px;
+   }
+   #dialog div.control {
+    text-align: center;
+   }
+    </style>

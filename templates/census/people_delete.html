@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Удаление сотрудника
+{% endblock %}
+{% block content %}
+    <h3>Удаление сотрудника</h3>
+
+    <form action="" class="mt-5 register-form" method="post">
+        {% csrf_token %}
+        <p>Вы уверены, что хотите удалить "{{ object }}"?</p>
+        <input type="submit" value="Подтвердить" />
+        <a class="button" href="{%  url 'list' %}">Отмена</a>
+    </form>
+{% endblock %}
+
+{% block endscript %}
+    <script>
+        //список имен для автокомплита
+        const names = [{% for name in names %} "{{ name.f_name }}", {% endfor %}];
+        //создаем автокомплит
+        $("#id_f_name").autocomplete({ source: names });
+
+    </script>
+{% endblock %}

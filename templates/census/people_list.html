@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Список сотрудников
+{% endblock %}
+
+{% block content %}
+    <h3>Список сотрудников</h3>
+    <a href="{% url 'add_people' %}">Add people</a> -
+    <a href="{% url 'add_language' %}">Add language</a> -
+    <a href="{% url 'add_department' %}">Add department</a>
+
+    <div>
+        <table border="1">
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Отдел</th>
+                <th>Язык</th>
+                <th>...</th>
+            </tr>
+            {% for people in peoples %}
+                <tr>
+                    <td>{{ people.f_name }}</td>
+                    <td>{{ people.l_name }}</td>
+                    <td>{{ people.age }}</td>
+                    <td>{{ people.department }}</td>
+                    <td>{{ people.language }}</td>
+                    <td>
+                        <a href='{% url 'edit_people' people.pk %}'>изменить</a>
+                        <br>
+                        <a href='{% url 'delete_people' people.pk %}'>удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
